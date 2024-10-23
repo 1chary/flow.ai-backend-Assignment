@@ -76,7 +76,7 @@ app.get("/transactions/:id",async(request,response) => {
 })
 
 // deleting transaction by id
-app.delete("/transactions/:id", async(request,response) => {
+app.delete("/transactions/delete/:id", async(request,response) => {
     const {id} = request.params;
     const deleteTransaction = `
     DELETE FROM transactions
