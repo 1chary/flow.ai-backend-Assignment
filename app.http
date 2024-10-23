@@ -15,3 +15,7 @@ Content-Type: application/json
     "description": "Received Salary of current month",
     "user_id": 4
 }
+
+
+###
+GET http://localhost:3002/transactions/2

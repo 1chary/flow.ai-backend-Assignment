@@ -64,4 +64,18 @@ app.post("/transactions/add", async(request,response) => {
 }) 
 
 
+// Retriving transaction by id
+app.get("transactions/:id",async(request,response) => {
+    const {id} = request.params;
+    const retrieveSpecificUserData = `
+    SELECT *
+    from transactions
+    where id = ${id};`;
+    const result = await db.get(retrieveSpecificUserData);
+    response.send(result)
+})
+
+
+
+
 initializeTheServer()
