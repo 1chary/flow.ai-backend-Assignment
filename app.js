@@ -65,7 +65,7 @@ app.post("/transactions/add", async(request,response) => {
 
 
 // Retriving transaction by id
-app.get("transactions/:id",async(request,response) => {
+app.get("/transactions/:id",async(request,response) => {
     const {id} = request.params;
     const retrieveSpecificUserData = `
     SELECT *
@@ -75,7 +75,16 @@ app.get("transactions/:id",async(request,response) => {
     response.send(result)
 })
 
-
+// deleting transaction by id
+app.delete("/transactions/:id", async(request,response) => {
+    const {id} = request.params;
+    const deleteTransaction = `
+    DELETE FROM transactions
+    where id = ${id}
+    `;
+    db.run(deleteTransaction);
+    response.send("Transaction Deleted Successfully")
+})
 
 
 initializeTheServer()
