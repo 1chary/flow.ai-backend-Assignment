@@ -1,3 +1,17 @@
 
 ###
 GET http://localhost:3002/transactions
+
+### 
+POST http://localhost:3002/transactions/add
+Content-Type: application/json
+
+{
+    "id": 4,
+    "type": "income",
+    "category": "salary",
+    "amount": 50000,
+    "date": "10-06-2024",
+    "description": "Received Salary of current month",
+    "user_id": 4
+}

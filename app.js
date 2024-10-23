@@ -7,6 +7,7 @@ const { open } = require("sqlite")
 const sqlite3 = require("sqlite3")
 
 let db = null
+app.use(express.json())
 
 const initializeTheServer = async () => {
     try {
@@ -34,7 +35,33 @@ app.get("/transactions", async(request,response) => {
     response.send(queryResult)
 })
 
-// 
+// Adding a new transactions
+app.post("/transactions/add", async(request,response) => {
+    const transactionDetails = request.body;
+    const {
+        id,
+        type,
+        category,
+        amount,
+        date,
+        description,
+        user_id
+    } = transactionDetails;
+    const addNewTransaction = `
+    INSERT INTO transactions(id,type,category,amount,date,description,user_id)
+    VALUES (
+        ${id},
+        '${type}',
+        '${category}',
+        ${amount},
+        '${date}',
+        '${description}',
+        ${user_id}
+    )
+    `
+    const queryResult = await db.run(addNewTransaction)
+    response.send("New Transaction Added Successfully")
+}) 
 
 
 initializeTheServer()
