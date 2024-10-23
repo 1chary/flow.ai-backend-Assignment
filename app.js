@@ -6,6 +6,8 @@ const dbPath = path.join(__dirname,"userdata.db")
 const { open } = require("sqlite")
 const sqlite3 = require("sqlite3")
 
+let db = null
+
 const initializeTheServer = async () => {
     try {
         db = await open({
@@ -13,7 +15,7 @@ const initializeTheServer = async () => {
             driver: sqlite3.Database
         })
         app.listen(3002, () => {
-            console.log("server is running at http:localhost:3002 ")
+            console.log("server is running at http://localhost:3002 ")
         })
     }
     catch(e) {
@@ -21,5 +23,18 @@ const initializeTheServer = async () => {
         process.exit(1)
     }
 }
+
+// Retriving all the transactions
+app.get("/transactions", async(request,response) => {
+    const getUserData = `
+    SELECT *
+    FROM transactions
+    `;
+    const queryResult = await db.all(getUserData)
+    response.send(queryResult)
+})
+
+// 
+
 
 initializeTheServer()
